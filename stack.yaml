@@ -1,0 +1,8 @@
+resolver: lts-22.13
+
+packages:
+- .
+
+extra-deps:
+- safe-coloured-text-0.2.0.1
+

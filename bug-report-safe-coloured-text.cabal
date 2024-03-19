@@ -1,0 +1,38 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           bug-report-safe-coloured-text
+version:        0.0.0.1
+synopsis:       safe-coloured-text bug report
+description:    Please see the README on GitHub at <https://github.com/cdornan/bug-report-safe-coloured-text#readme>
+category:       Web
+homepage:       https://github.com/cdornan/bug-report-safe-coloured-text#readme
+bug-reports:    https://github.com/cdornan/bug-report-safe-coloured-text/issues
+author:         Chris Dornan
+maintainer:     chris@chrisdornan.com
+copyright:      2024 Chris Dornan
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/cdornan/bug-report-safe-coloured-text
+
+executable sct-issue
+  main-is: sct-issue.hs
+  other-modules:
+      Paths_bug_report_safe_coloured_text
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Werror
+  build-depends:
+      base >=4.10 && <10
+    , bytestring
+    , fmt
+    , safe-coloured-text
+    , text
+  default-language: Haskell2010

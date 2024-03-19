@@ -1,0 +1,28 @@
+name:                bug-report-safe-coloured-text
+version:             0.0.0.1
+github:              "cdornan/bug-report-safe-coloured-text"
+license:             BSD3
+author:              "Chris Dornan"
+maintainer:          "chris@chrisdornan.com"
+copyright:           "2024 Chris Dornan"
+
+synopsis:            safe-coloured-text bug report
+category:            Web
+language:            Haskell2010
+
+description:         Please see the README on GitHub at <https://github.com/cdornan/bug-report-safe-coloured-text#readme>
+
+dependencies:
+- base          >= 4.10 && < 10
+- bytestring
+- fmt
+- safe-coloured-text
+- text
+
+ghc-options:
+- -Wall -Werror
+
+executables:
+  sct-issue:
+    main:                sct-issue.hs
+    source-dirs:         app

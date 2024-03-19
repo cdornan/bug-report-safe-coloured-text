@@ -1,0 +1,7 @@
+:set -Wall
+
+:set +m
+
+-- green bold lambdas and multiline mode
+:set prompt      "%s \ESC[1;32mλ: \ESC[m"
+:set prompt-cont "\ESC[1;32mλ| \ESC[m"
