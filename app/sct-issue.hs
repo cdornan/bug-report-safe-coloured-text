@@ -7,29 +7,35 @@ import qualified Data.ByteString                as B
 import           Data.Word
 import           Fmt
 import           Text.Colour
+import           Text.Colour.Code
 
 
 main :: IO ()
 main = do
   putStr "this 'hello' has a magenta background: "
-  test 0xff Nothing
+  test $ Left $ Colour24Bit 0xff 0x00 0xff
   putStr "\n"
   putStr "this 'hello' should have a red background: "
-  test 0x00 Nothing
+  test $ Left $ Colour24Bit 0xff 0x00 0x00
   putStr "\n"
   putStr "with the final CSI zero paremeter explicitly encoded this 'hello' has a red background: "
-  test 0x00 $ Just "\ESC[48;2;255;;0mhello\ESC[m"
+  test $ Right $ "\ESC[48;2;255;;0mhello\ESC[m"
+  putStr "\n"
+  putStr "with ye olde 4-bit colours this 'hello' has a (bright) red background: "
+  test $ Left $ Colour8 Bright Red
   putStr "\n"
 
-test :: Word8 -> Maybe B.ByteString -> IO ()
-test b mb = do
+test :: Either Colour B.ByteString -> IO ()
+test ei = do
     B.putStr out
     putStr "\n"
     mapM_ dump $ B.unpack out
   where
-    out, out_ :: B.ByteString
-    out  = maybe out_ id mb
-    out_ = renderChunksUtf8BS With24BitColours $ (:[])
+    out:: B.ByteString
+    out = either rdr id ei
+
+    rdr :: Colour -> B.ByteString
+    rdr c = renderChunksUtf8BS With24BitColours $ (:[])
       Chunk 
             { chunkText             = "hello"
             , chunkItalic           = Nothing
@@ -37,7 +43,7 @@ test b mb = do
             , chunkUnderlining      = Nothing
             , chunkBlinking         = Nothing
             , chunkForeground       = Nothing
-            , chunkBackground       = Just (Colour24Bit 255 0 b)
+            , chunkBackground       = Just c
             }
 
     dump :: Word8 -> IO ()
